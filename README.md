@@ -1,6 +1,6 @@
 # Landscape-Server
 
-Hi, you will be building something called the 'Landscape-Server'. It will be written entirely in C# or Ruby.
+Hi, you will be building something called the 'Landscape-Server'. It will be written entirely in Ruby.
 
 ## Overview
 
@@ -8,7 +8,7 @@ This is a digital landscape composed of 100 cells. We'll imagine that it's shape
 
 Bots from something called the 'Bot-Server' will be interacting with your landscape. Bots can attempt to mine or harvest from any of your cells. Bots need minerals to prosper and to create more bots. Bots also need food in order to mine and harvest.
 
-Each bot has a mining and harvesting experience (xp) level which increases every time they mine or harvest. When a bot harvests from a cell, the cell's food count decrements in proportion to the bot's harvesting-xp by a formula you will design. When a bot mines from a cell, both the food-count and mineral-count of the cell decrements in proportion to the bot's mining-xp, by a formula you will design. Mining is a destructive process which unfortunately destroys food in the cell.
+Each bot has a mining and harvesting experience (xp) level which increases every time they mine or harvest. When a bot harvests from a cell, the cell's food count decrements in proportion to the bot's harvesting_xp by a formula you will design. When a bot mines from a cell, both the food_count and mineral_count of the cell decrements in proportion to the bot's mining_xp, by a formula you will design. Mining is a destructive process which unfortunately destroys food in the cell.
 
 ## Database
 
@@ -20,33 +20,33 @@ You will be building API endpoints for the Bot-Server to consume. You will have 
 
 ```
 - POST '/mine'
-- description: at cell with specified coords, decreases food + mineral amount proportionately with bot's mining-xp. Returns number of minerals mined as 'minerals-mined'. If no minerals left, nothing happens and minerals-mined returned is 0.
+- description: at cell with specified coords, decreases food + mineral amount proportionately with bot's mining_xp. Returns number of minerals mined as 'minerals_mined'. If no minerals left, nothing happens and minerals_mined returned is 0.
 - data:
     {
       "x" : __,
       "y" : __,
-      "bot-mining-xp" : __
+      "bot_mining_xp" : __
     }
 - response:
     {
-      "minerals-mined" : __
+      "minerals_mined" : __
     }
 
 - POST '/harvest'
-- description: at given coords, decreases food amount proportionately with bot's harvesting-xp. returns number of food harvested as 'food-harvested'. if no food left, nothing happens and food-harvested is 0.
+- description: at given coords, decreases food amount proportionately with bot's harvesting_xp. returns number of food harvested as 'food_harvested'. if no food left, nothing happens and food-harvested is 0.
 - data:
     {
       "x" : __,
       "y" : __,
-      "bot-harvesting-xp" : __
+      "bot_harvesting_xp" : __
     }
 - response:
     {
-      "food-harvested" : __
+      "food_harvested" : __
     }
 ```
 
-You will also be building API endpoints for a 'Command-Station' to consume. You will have an endpoint which returns the current state of all cells -- their x and y coordinates, their food-count, and their mineral-count. You will also have an endpoint which returns the current state of a single cell with a specified set of coords. Finally, you will have a POST '/restart' route which will dump the current landscape, and generate a new landscape. These routes might look like this:
+You will also be building API endpoints for a 'Command-Station' to consume. You will have an endpoint which returns the current state of all cells -- their x and y coordinates, their food_count, and their mineral_count. You will also have an endpoint which returns the current state of a single cell with a specified set of coords. Finally, you will have a POST '/restart' route which will dump the current landscape, and generate a new landscape. These routes might look like this:
 
 ```
   - GET '/cells'
@@ -54,10 +54,10 @@ You will also be building API endpoints for a 'Command-Station' to consume. You 
   - response:
     [
       {
-        x: __,
-        y: __,
-        food-count: __,
-        mineral-count: __
+        "x" : __,
+        "y" : __,
+        "food_count" : __,
+        "mineral_count" : __
       },
       ...
     ]
@@ -66,10 +66,10 @@ You will also be building API endpoints for a 'Command-Station' to consume. You 
   - description: returns information about cell with specified x and y coordinates
   - response:
     {
-      x: __,
-      y: __,
-      food-count: __,
-      mineral-count: __
+      "x" : __,
+      "y" : __,
+      "food_count" : __,
+      "mineral_count" : __
     }
 
   - POST '/restart'
