@@ -1,6 +1,6 @@
 # Landscape-Server
 
-Hi, you will be building something called the 'Landscape-Server'. It will be written entirely in C# or Ruby.
+Hi, you will be building something called the 'Landscape-Server'. It will be written entirely in Ruby.
 
 ## Overview
 
