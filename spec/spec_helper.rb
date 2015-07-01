@@ -12,9 +12,11 @@ require 'shoulda-matchers'
 require 'rack/test'
 require 'capybara'
 require 'capybara/rspec'
+require 'json_spec'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
+  config.include JsonSpec::Helpers
 end
 
 def app
