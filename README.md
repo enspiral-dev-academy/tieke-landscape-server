@@ -23,8 +23,8 @@ You will be building API endpoints for the Bot-Server to consume. You will have 
 - description: at cell with specified coords, decreases food + mineral amount proportionately with bot's mining_xp. Returns number of minerals mined as 'minerals_mined'. If no minerals left, nothing happens and minerals_mined returned is 0.
 - data:
     {
-      "x_coordinate" : __,
-      "y_coordinate" : __,
+      "x" : __,
+      "y" : __,
       "bot_mining_xp" : __
     }
 - response:
@@ -36,8 +36,8 @@ You will be building API endpoints for the Bot-Server to consume. You will have 
 - description: at given coords, decreases food amount proportionately with bot's harvesting_xp. returns number of food harvested as 'food_harvested'. if no food left, nothing happens and food-harvested is 0.
 - data:
     {
-      "x_coordinate" : __,
-      "y_coordinate" : __,
+      "x" : __,
+      "y" : __,
       "bot_harvesting_xp" : __
     }
 - response:
@@ -54,8 +54,8 @@ You will also be building API endpoints for a 'Command-Station' to consume. You 
   - response:
     [
       {
-        "x_coordinate" : __,
-        "y_coordinate" : __,
+        "x" : __,
+        "y" : __,
         "food_count" : __,
         "mineral_count" : __
       },
@@ -66,8 +66,8 @@ You will also be building API endpoints for a 'Command-Station' to consume. You 
   - description: returns information about cell with specified x and y coordinates
   - response:
     {
-      "x_coordinate" : __,
-      "y_coordinate" : __,
+      "x" : __,
+      "y" : __,
       "food_count" : __,
       "mineral_count" : __
     }
