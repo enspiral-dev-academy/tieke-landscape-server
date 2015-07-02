@@ -35,4 +35,105 @@ describe "Index controller" do
 			Cell.destroy_all
 		end
 	end
+
+	describe "post '/harvest'" do
+
+		let (:cell) { Cell.create(x_coordinate:4, y_coordinate:1, food_count: 2, mineral_count:8) }
+
+		context "if not enough food in the cell" do
+			before do
+				@cell = cell
+				params = {
+					x_coordinate: @cell.x_coordinate, 
+					y_coordinate: @cell.y_coordinate,
+					bot_harvesting_xp: 5
+				}
+				post "/harvest", params
+				@cell = Cell.find(@cell.id)
+			end
+
+			it "returns the amount of food in the cell" do
+				expect(last_response.body).to eq({food_harvested: 2}.to_json)
+			end
+
+			it "it sets cells food_count to 0" do
+				expect(@cell.food_count).to eq(0)
+			end
+		end
+
+		context "if enough food in cell" do
+			before do
+				@cell = Cell.create(x_coordinate:4, y_coordinate:1, food_count: 5, mineral_count:8)
+				params = {
+					x_coordinate: @cell.x_coordinate, 
+					y_coordinate: @cell.y_coordinate,
+					bot_harvesting_xp: 2}
+				post "/harvest", params
+				@cell = Cell.find(@cell.id)
+			end
+			it "returns food_harvested exactly equal to bot's harvest_xp, as json" do
+				expect(last_response.body).to eq({food_harvested: 2}.to_json)
+			end
+			it "removes food_harvested amount of food from the cell" do
+				expect(@cell.food_count).to eq(3)
+			end
+		end
+
+		after do
+			Cell.destroy_all
+		end
+
+	end
+
+		describe "post '/mine'" do
+
+		let (:cell) { Cell.create(x_coordinate:4, y_coordinate:1, food_count: 2, mineral_count:4) }
+
+		context "if not enough minerals in the cell" do
+			before do
+				@cell = cell
+				params = {
+					x_coordinate: @cell.x_coordinate, 
+					y_coordinate: @cell.y_coordinate,
+					bot_mining_xp: 5
+				}
+				post "/mine", params
+				@cell = Cell.find(@cell.id)
+			end
+
+			it "returns the amount of minerals in the cell" do
+				expect(last_response.body).to eq({minerals_mined: 4}.to_json)
+			end
+
+			it "it sets cells mineral_count to 0" do
+				expect(@cell.mineral_count).to eq(0)
+			end
+		end
+
+		context "if enough minerals in cell" do
+			before do
+				@cell = Cell.create(x_coordinate:4, y_coordinate:1, food_count: 5, mineral_count:8)
+				params = {
+					x_coordinate: @cell.x_coordinate, 
+					y_coordinate: @cell.y_coordinate,
+					bot_mining_xp: 2}
+				post "/mine", params
+				@cell = Cell.find(@cell.id)
+			end
+			it "returns minerals_mined exactly equal to bot_mining_xp, as json" do
+				expect(last_response.body).to eq({minerals_mined: 2}.to_json)
+			end
+			it "removes minerals_mined amount of minerals from the cell" do
+				expect(@cell.mineral_count).to eq(6)
+			end
+			it "removes food_harvested amount of food from the cell" do
+				expect(@cell.food_count).to eq(3)
+			end
+		end
+
+		after do
+			Cell.destroy_all
+		end
+		
+	end
 end

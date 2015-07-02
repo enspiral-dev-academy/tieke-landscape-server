@@ -22,29 +22,41 @@ post '/restart' do
 end
 
 post '/harvest' do
-	
+	cell = Cell.find_by(x_coordinate: params[:x_coordinate].to_i, y_coordinate: params[:y_coordinate].to_i)
+	bot_harvesting_xp = params[:bot_harvesting_xp].to_i
+	if cell.food_count < bot_harvesting_xp
+		@food_harvested = cell.food_count
+		cell.food_count = 0
+	else
+		@food_harvested = bot_harvesting_xp
+		cell.food_count -= bot_harvesting_xp 
+	end
+		cell.save
+	{
+    food_harvested: @food_harvested
+	}.to_json	
 end
-# description: at given coords, decreases food amount proportionately with bot's harvesting_xp. returns number of food harvested as 'food_harvested'. if no food left, nothing happens and food-harvested is 0.
-# data:
-#     {
-#       "x" : __,
-#       "y" : __,
-#       "bot_harvesting_xp" : __
-#     }
-# - response:
-#     {
-#       "food_harvested" : __
-#     }
+
  post '/mine' do
+ 	cell = Cell.find_by(x_coordinate: params[:x_coordinate].to_i, y_coordinate: params[:y_coordinate].to_i)
+	bot_mining_xp = params[:bot_mining_xp].to_i
+	if cell.mineral_count < bot_mining_xp
+		@minerals_mined = cell.mineral_count 
+		cell.mineral_count = 0
+	else
+		@minerals_mined = bot_mining_xp
+		cell.mineral_count -= bot_mining_xp
+	end
+
+	if cell.food_count < bot_mining_xp
+		cell.food_count =0
+	else
+		cell.food_count -= bot_mining_xp 
+	end
+		cell.save
+	{
+    minerals_mined: @minerals_mined
+	}.to_json	
+
  end
- # description: at cell with specified coords, decreases food + mineral amount proportionately with bot's mining_xp. Returns number of minerals mined as 'minerals_mined'. If no minerals left, nothing happens and minerals_mined returned is 0.
- # data:
- #    {
- #      "x_coordinate" : "__",
- #      "y_coordinate" : "__",
- #      "bot_mining_xp" : __
- #    }
- # response:
- #    {
- #      "minerals_mined" : __
- #    }
+
