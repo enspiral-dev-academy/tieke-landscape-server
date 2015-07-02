@@ -12,6 +12,7 @@ end
 post '/restart' do
 	Cell.starting_cells
 	Cell.assign_and_subtract_from_total_resources
+	json Cell.all
 end
 
 post '/harvest' do
