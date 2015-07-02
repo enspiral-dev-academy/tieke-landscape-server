@@ -1,4 +1,4 @@
-
+Cell.destroy_all
 x = 1
 y = 1
 
