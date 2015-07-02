@@ -3,8 +3,8 @@ class CreateCells < ActiveRecord::Migration
   	create_table :cells do |t|
   		t.integer :food_count
  			t.integer :mineral_count
-  		t.integer :x_coordinate
-  		t.integer :y_coordinate
+  		t.integer :x
+  		t.integer :y
   		t.timestamps null:false
   	end
   end

@@ -4,8 +4,8 @@ get '/cells' do
 	json Cell.all
 end
 
-get '/cells/:x_coordinate/:y_coordinate' do
-	cell = Cell.where(:x_coordinate => params[:x_coordinate], :y_coordinate => params[:y_coordinate])
+get '/cells/:x/:y' do
+	cell = Cell.where(:x => params[:x], :y => params[:y])
 	json cell
 end
 
@@ -16,13 +16,13 @@ post '/restart' do
 
 	10.times do |y|
 		10.times do |x|
-			Cell.create(x_coordinate:x+1, y_coordinate:y+1, food_count:rand(1..10), mineral_count:rand(1..10))
+			Cell.create(x:x+1, y:y+1, food_count:rand(1..10), mineral_count:rand(1..10))
 		end
 	end	
 end
 
 post '/harvest' do
-	cell = Cell.find_by(x_coordinate: params[:x_coordinate].to_i, y_coordinate: params[:y_coordinate].to_i)
+	cell = Cell.find_by(x: params[:x].to_i, y: params[:y].to_i)
 	bot_harvesting_xp = params[:bot_harvesting_xp].to_i
 	if cell.food_count < bot_harvesting_xp
 		@food_harvested = cell.food_count
@@ -38,7 +38,7 @@ post '/harvest' do
 end
 
  post '/mine' do
- 	cell = Cell.find_by(x_coordinate: params[:x_coordinate].to_i, y_coordinate: params[:y_coordinate].to_i)
+ 	cell = Cell.find_by(x: params[:x].to_i, y: params[:y].to_i)
 	bot_mining_xp = params[:bot_mining_xp].to_i
 	if cell.mineral_count < bot_mining_xp
 		@minerals_mined = cell.mineral_count 
