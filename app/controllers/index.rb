@@ -10,15 +10,8 @@ get '/cells/:x/:y' do
 end
 
 post '/restart' do
-	Cell.destroy_all
-	x = 1
-	y = 1
-
-	10.times do |y|
-		10.times do |x|
-			Cell.create(x:x+1, y:y+1, food_count:rand(1..10), mineral_count:rand(1..10))
-		end
-	end	
+	Cell.starting_cells
+	Cell.assign_and_subtract_from_total_resources
 end
 
 post '/harvest' do
@@ -29,19 +22,20 @@ post '/harvest' do
 		cell.food_count = 0
 	else
 		@food_harvested = bot_harvesting_xp
-		cell.food_count -= bot_harvesting_xp 
+		cell.food_count -= bot_harvesting_xp
 	end
 		cell.save
 	{
-    food_harvested: @food_harvested
-	}.to_json	
+		"cell" => cell,
+		food_harvested: @food_harvested
+	}.to_json
 end
 
  post '/mine' do
- 	cell = Cell.find_by(x: params[:x].to_i, y: params[:y].to_i)
+	cell = Cell.find_by(x: params[:x].to_i, y: params[:y].to_i)
 	bot_mining_xp = params[:bot_mining_xp].to_i
 	if cell.mineral_count < bot_mining_xp
-		@minerals_mined = cell.mineral_count 
+		@minerals_mined = cell.mineral_count
 		cell.mineral_count = 0
 	else
 		@minerals_mined = bot_mining_xp
@@ -51,12 +45,13 @@ end
 	if cell.food_count < bot_mining_xp
 		cell.food_count =0
 	else
-		cell.food_count -= bot_mining_xp 
+		cell.food_count -= bot_mining_xp
 	end
-		cell.save
-	{
-    minerals_mined: @minerals_mined
-	}.to_json	
 
+	cell.save
+	{
+		"cell" => cell,
+		minerals_mined: @minerals_mined
+	}.to_json
  end
 
