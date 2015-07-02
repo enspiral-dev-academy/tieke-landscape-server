@@ -53,7 +53,7 @@ describe "Index controller" do
 			end
 
 			it "returns the amount of food in the cell" do
-				expect(last_response.body).to eq({"cell" => @cell, food_harvested: 2}.to_json)
+				expect(last_response.body).to eq({cell: @cell, food_harvested: 2}.to_json)
 			end
 
 			it "it sets cells food_count to 0" do
@@ -72,7 +72,7 @@ describe "Index controller" do
 				@cell = Cell.find(@cell.id)
 			end
 			it "returns food_harvested exactly equal to bot's harvest_xp, as json" do
-				expect(last_response.body).to eq({"cell" => @cell, food_harvested: 2}.to_json)
+				expect(last_response.body).to eq({cell: @cell, food_harvested: 2}.to_json)
 			end
 			it "removes food_harvested amount of food from the cell" do
 				expect(@cell.food_count).to eq(3)
@@ -102,7 +102,7 @@ describe "Index controller" do
 			end
 
 			it "returns the amount of minerals in the cell" do
-				expect(last_response.body).to eq({"cell" => @cell, minerals_mined: 4}.to_json)
+				expect(last_response.body).to eq({cell: @cell, minerals_mined: 4}.to_json)
 			end
 
 			it "it sets cells mineral_count to 0" do
@@ -121,7 +121,7 @@ describe "Index controller" do
 				@cell = Cell.find(@cell.id)
 			end
 			it "returns minerals_mined exactly equal to bot_mining_xp, as json" do
-				expect(last_response.body).to eq({"cell" => @cell, minerals_mined: 2}.to_json)
+				expect(last_response.body).to eq({cell: @cell, minerals_mined: 2}.to_json)
 			end
 			it "removes minerals_mined amount of minerals from the cell" do
 				expect(@cell.mineral_count).to eq(6)

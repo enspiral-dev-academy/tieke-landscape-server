@@ -26,7 +26,7 @@ post '/harvest' do
 	end
 		cell.save
 	{
-		"cell" => cell,
+		cell: cell,
 		food_harvested: @food_harvested
 	}.to_json
 end
@@ -50,7 +50,7 @@ end
 
 	cell.save
 	{
-		"cell" => cell,
+		cell: cell,
 		minerals_mined: @minerals_mined
 	}.to_json
  end
