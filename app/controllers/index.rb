@@ -1,7 +1,7 @@
 require 'sinatra/json'
 
 get '/cells' do
-	json Cell.all
+	json Cell.all.sort
 end
 
 get '/cells/:x/:y' do
