@@ -26,10 +26,7 @@ post '/harvest' do
 		cell.food_count -= bot_harvesting_xp
 	end
 		cell.save
-	{
-		cell: cell,
-		food_harvested: @food_harvested
-	}.to_json
+	json [cell, "food_harvested"]
 end
 
  post '/mine' do
@@ -50,9 +47,6 @@ end
 	end
 
 	cell.save
-	{
-		cell: cell,
-		minerals_mined: @minerals_mined
-	}.to_json
+	json [cell, @minerals_mined ]
  end
 
