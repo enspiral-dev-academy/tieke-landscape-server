@@ -27,10 +27,9 @@ class Cell < ActiveRecord::Base
     total_landscape_minerals = rand(3000..4000)
     mineral_amount_array = Array.new(100){0}
     total_landscape_minerals.times do
-        mineral_amount_array[rand(0..99)] += 1
-      end
-      p mineral_amount_array
-      Cell.all.each {|cell| cell.update(mineral_count: mineral_amount_array.shift)}
+      mineral_amount_array[rand(0..99)] += 1
+    end
+    Cell.all.each {|cell| cell.update(mineral_count: mineral_amount_array.shift)}
   end
 
 end
