@@ -26,7 +26,7 @@ post '/harvest' do
 		cell.food_count -= bot_harvesting_xp
 	end
 		cell.save
-	json [cell, "food_harvested"]
+	json [cell, @food_harvested]
 end
 
  post '/mine' do
