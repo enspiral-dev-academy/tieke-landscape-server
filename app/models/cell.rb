@@ -4,7 +4,7 @@ class Cell < ActiveRecord::Base
     Cell.destroy_all
     10.times do |y|
       10.times do |x|
-        Cell.create(x: x+1, y: y+1)
+        Cell.create(x: x+1, y: y+1, energy_expenditure: Math.sqrt( ((x+1)**2) + ((y+1)**2) ))
       end
     end
   end
